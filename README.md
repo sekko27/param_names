@@ -27,7 +27,7 @@ import {
     parseMethodParamNames,
     parseSetterParamNames,
     parseStaticMethodParamNames
-} from "https://deno.land/x/param-names/mod.ts";
+} from "https://deno.land/x/param_names/mod.ts";
 
 const PrintConstructorParamNames = (cls: any) => console.log(parseConstructorParamNames(cls));
 const PrintMethodParamNames = (proto: any, method: string) => console.log(parseMethodParamNames(proto, method));
