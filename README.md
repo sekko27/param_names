@@ -1,3 +1,11 @@
+[![param_names ci](https://github.com/sekko27/param_names/workflows/Deno/badge.svg)](https://github.com/sekko/param_names)
+[![codecov](https://codecov.io/gh/sekko27/param_names/branch/master/graph/badge.svg?token=PEIMOKPEB6)](https://codecov.io/gh/sekko27/param_names)
+[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/param_names/mod.ts)
+
+![Custom badge](https://img.shields.io/endpoint?url=https://deno-visualizer.danopia.net/shields/dep-count/x/param_names/mod.ts)
+![Custom badge](https://img.shields.io/endpoint?url=https://deno-visualizer.danopia.net/shields/updates/x/param_names/mod.ts)
+[![Custom badge](https://img.shields.io/endpoint?url=https://deno-visualizer.danopia.net/shields/latest-version/x/param_names/mod.ts)](https://deno.land/x/param_names)
+
 # PARAM-NAMES
 
 ## Introduction
@@ -27,30 +35,30 @@ import {
     parseMethodParamNames,
     parseSetterParamNames,
     parseStaticMethodParamNames
-} from "https://deno.land/x/param_names/mod.ts";
+} from **https://deno.land/x/param_names/mod.ts**;
 
 const PrintConstructorParamNames = (cls: any) => console.log(parseConstructorParamNames(cls));
 const PrintMethodParamNames = (proto: any, method: string) => console.log(parseMethodParamNames(proto, method));
 const PrintSetterParamNames = (proto: any, property: string) => console.log(parseSetterParamNames(proto, property));
 const PrintStaticMethodParamNames = (cls: any, method: string) => console.log(parseStaticMethodParamNames(cls, method));
 
-// Will print ["p1", "rest"]
+// Will print [**p1**, **rest**]
 @PrintConstructorParamNames
 class Test {
     constructor(private readonly p1: number, ...rest: boolean[]) {
     }
     
-    // Will print ["input", "limit"]
+    // Will print [**input**, **limit**]
     @PrintMethodParamNames
     public async method(input: ReadableStream, limit: number = 1024): Promise<WritableStream> {
         // ...
     }
 
-    // Will print ["value"]
+    // Will print [**value**]
     @PrintSetterParamNames
     set name(value: string) {}
 
-    // Will print ["arr", "mapper"]
+    // Will print [**arr**, **mapper**]
     @PrintStaticMethodParamNames    
     protected static async staticMethod<T, R = any>(arr: T[], mapper: (value: T) => R): Promise<R[]> {
         // ...
@@ -60,4 +68,8 @@ class Test {
 
 ## Testing
 
-> deno test --allow-all --config ./tsconfig.json
+We exclude lint checks for **no-explicit-any**, **ban-types**, **require-await**, **no-unused-vars**, **no-inferrable-types**, 
+because we test parameter names not the implementations. We also add **--no-check** flag for ignore ts errors in tests.
+
+> deno test -A --unstable --coverage=./.cov --no-check --config deno.json
+
